@@ -9,7 +9,7 @@ const CharactersListStyled = styled.div`
   display: grid;
   grid-row-gap: 2.3em;
   grid-auto-flow: columns;
-  grid-column-gap: 66px;
+  grid-column-gap: 60px;
   grid-template-columns: repeat(auto-fill, 270px);
   justify-content: center;
   padding: 3em 0;
@@ -56,21 +56,24 @@ function CharactersList() {
     const selectedPage = e.selected + 1;
     getPagination(selectedPage);
   };
+  const paginate = (
+    <ReactPaginate
+      previousLabel={"prev"}
+      nextLabel={"next"}
+      breakLabel={"..."}
+      breakClassName={"break-me"}
+      pageCount={pageCount}
+      marginPagesDisplayed={2}
+      pageRangeDisplayed={5}
+      onPageChange={handlePage}
+      containerClassName={"pagination"}
+      subContainerClassName={"pages pagination"}
+      activeClassName={"active"}
+    />
+  );
   return (
     <>
-      <ReactPaginate
-        previousLabel={"prev"}
-        nextLabel={"next"}
-        breakLabel={"..."}
-        breakClassName={"break-me"}
-        pageCount={pageCount}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={handlePage}
-        containerClassName={"pagination"}
-        subContainerClassName={"pages pagination"}
-        activeClassName={"active"}
-      />
+      {paginate}
       <CharactersListStyled>
         {charactersList.map(({ name, image, species, gender, location }) => {
           return (
@@ -84,6 +87,7 @@ function CharactersList() {
           );
         })}
       </CharactersListStyled>
+      {paginate}
     </>
   );
 }
