@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Card from "./components/card/index";
 import { useSelector, useDispatch } from "react-redux";
+import ReactPaginate from "react-paginate";
 
 const CharactersListStyled = styled.div`
   display: grid;
@@ -16,8 +17,14 @@ const CharactersListStyled = styled.div`
 function CharactersList() {
   const dispatch = useDispatch();
   const charactersList = useSelector((state) => state.charactersList);
+  const [pageCount, setPageCount] = useState(1);
 
   useEffect(() => {
+    getDataList();
+    getPagination();
+  }, [dispatch]);
+
+  const getDataList = () => {
     axios
       .get("https://rickandmortyapi.com/api/character")
       .then((res) => {
@@ -29,22 +36,55 @@ function CharactersList() {
       .catch((err) => {
         console.log(err);
       });
-  }, [dispatch]);
+  };
+  const getPagination = (offset) => {
+    axios
+      .get(`https://rickandmortyapi.com/api/character/?page=${offset}`)
+      .then((res) => {
+        dispatch({
+          type: "CHARACTERS_LIST",
+          payload: res.data.results,
+        });
+        setPageCount(res.data.info.pages);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
+  const handlePage = (e) => {
+    const selectedPage = e.selected + 1;
+    getPagination(selectedPage);
+  };
   return (
-    <CharactersListStyled>
-      {charactersList.map(({ name, image, species, gender, location }) => {
-        return (
-          <Card
-            name={name}
-            image={image}
-            species={species}
-            gender={gender}
-            location={location}
-          />
-        );
-      })}
-    </CharactersListStyled>
+    <>
+      <ReactPaginate
+        previousLabel={"prev"}
+        nextLabel={"next"}
+        breakLabel={"..."}
+        breakClassName={"break-me"}
+        pageCount={pageCount}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={handlePage}
+        containerClassName={"pagination"}
+        subContainerClassName={"pages pagination"}
+        activeClassName={"active"}
+      />
+      <CharactersListStyled>
+        {charactersList.map(({ name, image, species, gender, location }) => {
+          return (
+            <Card
+              name={name}
+              image={image}
+              species={species}
+              gender={gender}
+              location={location}
+            />
+          );
+        })}
+      </CharactersListStyled>
+    </>
   );
 }
 export default CharactersList;
