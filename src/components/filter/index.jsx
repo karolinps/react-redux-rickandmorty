@@ -32,6 +32,7 @@ function Filter() {
   const [inputValue, setInputValue] = useState("");
   const [valueStatus, setValueStatus] = useState("");
   const [valueGender, setValueGender] = useState("");
+  const [notFound, setNotFound] = useState("");
   const selectStatusRef = useRef();
   const selectGenderRef = useRef();
   const dispatch = useDispatch();
@@ -44,6 +45,9 @@ function Filter() {
     });
     if (e.target.value.length > 3) {
       search(e.target.value, valueStatus, valueGender);
+    }
+    if (e.target.value.length === 0) {
+      setNotFound("");
     }
   };
   const handleChangeSelect = (e) => {
@@ -77,10 +81,8 @@ function Filter() {
         payload: resp.data.results,
       });
     } catch (error) {
-      if (error) {
-        setInputValue("");
-        setValueGender("");
-        setValueStatus("");
+      if (error.response.status === 404) {
+        setNotFound("No se encontraron resultados...");
       }
     }
   };
@@ -95,28 +97,32 @@ function Filter() {
     selectStatusRef.current.select.clearValue();
     selectGenderRef.current.select.clearValue();
     search("", "", "");
+    setNotFound("");
   };
   return (
-    <Wrapper>
-      <input placeholder="name" onChange={handleChange} value={inputValue} />
-      <Select
-        options={optionsStatus}
-        onChange={handleChangeSelect}
-        getOptionLabel={getLabel}
-        getOptionValue={getValue}
-        placeholder="Select status"
-        ref={selectStatusRef}
-      />
-      <Select
-        options={optionsGender}
-        onChange={handleChangeGender}
-        getOptionLabel={getLabel}
-        getOptionValue={getValue}
-        placeholder="Select gender"
-        ref={selectGenderRef}
-      />
-      <button onClick={clear}>Clear filters</button>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <input placeholder="name" onChange={handleChange} value={inputValue} />
+        <Select
+          options={optionsStatus}
+          onChange={handleChangeSelect}
+          getOptionLabel={getLabel}
+          getOptionValue={getValue}
+          placeholder="Select status"
+          ref={selectStatusRef}
+        />
+        <Select
+          options={optionsGender}
+          onChange={handleChangeGender}
+          getOptionLabel={getLabel}
+          getOptionValue={getValue}
+          placeholder="Select gender"
+          ref={selectGenderRef}
+        />
+        <button onClick={clear}>Clear filters</button>
+      </Wrapper>
+      {notFound ? <div style={{ textAlign: "center" }}>{notFound}</div> : ""}
+    </>
   );
 }
 export default Filter;
