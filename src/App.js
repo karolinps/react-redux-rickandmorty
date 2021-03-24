@@ -7,6 +7,8 @@ import { createStore } from "redux";
 
 const initialState = {
   charactersList: [],
+  filterByName: "",
+  
 };
 const store = createStore(reducer, initialState);
 

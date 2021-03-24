@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Card from "./components/card/index";
 import { useSelector, useDispatch } from "react-redux";
 import ReactPaginate from "react-paginate";
+import Filter from "./components/filter/index";
 
 const CharactersListStyled = styled.div`
   display: grid;
@@ -74,8 +75,9 @@ function CharactersList() {
   return (
     <>
       {paginate}
+      <Filter />
       <CharactersListStyled>
-        {charactersList.map(({ name, image, species, gender, location }) => {
+        {charactersList.map(({ name, image, species, gender, location }, i) => {
           return (
             <Card
               name={name}
@@ -83,6 +85,7 @@ function CharactersList() {
               species={species}
               gender={gender}
               location={location}
+              key={i}
             />
           );
         })}
