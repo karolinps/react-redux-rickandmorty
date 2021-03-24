@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const CardStyled = styled.div`
   cursor: pointer;
@@ -54,5 +55,12 @@ function Card({ image, name, gender, species, location, status }) {
     </CardStyled>
   );
 }
-
+Card.propTypes = {
+  image: PropTypes.string,
+  name: PropTypes.string,
+  gender: PropTypes.string,
+  species: PropTypes.string,
+  location: PropTypes.object,
+  status: PropTypes.string,
+};
 export default Card;

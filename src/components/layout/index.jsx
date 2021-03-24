@@ -1,6 +1,7 @@
 import React from "react";
 import style from "styled-components";
 import Header from "../header/index";
+import PropTypes from "prop-types"; 
 
 const Wrapper = style.div`
     margin: auto;
@@ -17,4 +18,7 @@ function Layout({ children }) {
   );
 }
 
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 export default Layout;
