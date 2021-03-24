@@ -18,7 +18,8 @@ const CharactersListStyled = styled.div`
 function CharactersList() {
   const dispatch = useDispatch();
   const charactersList = useSelector((state) => state.charactersList);
-  const [pageCount, setPageCount] = useState(1);
+  const [pageCount, setPageCount] = useState(0);
+  const [current, setPageCurrent] = useState("");
 
   useEffect(() => {
     getDataList();
@@ -39,8 +40,10 @@ function CharactersList() {
       });
   };
   const getPagination = (offset) => {
+    const currentPage = offset ? offset : 1;
+    setPageCurrent(currentPage - 1);
     axios
-      .get(`https://rickandmortyapi.com/api/character/?page=${offset}`)
+      .get(`https://rickandmortyapi.com/api/character/?page=${currentPage}`)
       .then((res) => {
         dispatch({
           type: "CHARACTERS_LIST",
@@ -64,6 +67,7 @@ function CharactersList() {
       breakLabel={"..."}
       breakClassName={"break-me"}
       pageCount={pageCount}
+      forcePage={current}
       marginPagesDisplayed={2}
       pageRangeDisplayed={5}
       onPageChange={handlePage}

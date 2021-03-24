@@ -22,6 +22,7 @@ const Wrapper = styled.div`
     padding: 0 10px;
     height: 40px;
     background: white;
+    font-size:16px;
   }
   button {
     cursor: pointer;
@@ -114,7 +115,7 @@ function Filter() {
     <>
       <Wrapper>
         <input
-          placeholder="name"
+          placeholder="Search by name"
           onChange={handleChange}
           value={inputValue}
           className="input-search"
