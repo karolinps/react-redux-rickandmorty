@@ -8,7 +8,8 @@ import { createStore } from "redux";
 const initialState = {
   charactersList: [],
   filterByName: "",
-  
+  filterByStatus: "",
+  filterByGenre: "",
 };
 const store = createStore(reducer, initialState);
 

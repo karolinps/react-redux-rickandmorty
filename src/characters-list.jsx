@@ -10,10 +10,10 @@ const CharactersListStyled = styled.div`
   display: grid;
   grid-row-gap: 2.3em;
   grid-auto-flow: columns;
-  grid-column-gap: 60px;
+  grid-column-gap: 30px;
   grid-template-columns: repeat(auto-fill, 270px);
   justify-content: center;
-  padding: 3em 0;
+  padding: 2em 0;
 `;
 function CharactersList() {
   const dispatch = useDispatch();
@@ -77,18 +77,21 @@ function CharactersList() {
       {paginate}
       <Filter />
       <CharactersListStyled>
-        {charactersList.map(({ name, image, species, gender, location }, i) => {
-          return (
-            <Card
-              name={name}
-              image={image}
-              species={species}
-              gender={gender}
-              location={location}
-              key={i}
-            />
-          );
-        })}
+        {charactersList.map(
+          ({ name, image, species, gender, location, status }, i) => {
+            return (
+              <Card
+                name={name}
+                image={image}
+                species={species}
+                gender={gender}
+                location={location}
+                status={status}
+                key={i}
+              />
+            );
+          }
+        )}
       </CharactersListStyled>
       {paginate}
     </>

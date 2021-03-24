@@ -32,7 +32,7 @@ const CardStyled = styled.div`
   }
 `;
 
-function Card({ image, name, gender, species, location }) {
+function Card({ image, name, gender, species, location, status }) {
   return (
     <CardStyled>
       <img loading="lazy" src={image} alt={name} />
@@ -46,6 +46,9 @@ function Card({ image, name, gender, species, location }) {
         </p>
         <p>
           <strong>Localización:</strong> {location.name}
+        </p>
+        <p>
+          <strong>Estado:</strong> {status}
         </p>
       </div>
     </CardStyled>

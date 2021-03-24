@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 code {
@@ -42,6 +43,6 @@ code {
 }
 .pagination > li > a,
 .pagination > li > span {
-  color: gray;
-  background: #fff;
+  color: white;
+  background: black;
 }
