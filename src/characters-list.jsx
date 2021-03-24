@@ -24,7 +24,7 @@ function CharactersList() {
   useEffect(() => {
     getDataList();
     getPagination();
-  }, [dispatch]);
+  }, []);
 
   const getDataList = () => {
     axios
