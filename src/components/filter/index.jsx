@@ -15,6 +15,17 @@ const Wrapper = styled.div`
   -ms-flex-pack: center;
   justify-content: center;
   padding: 2em 0;
+  .input-search,
+  button {
+    border: none;
+    border-radius: 5px;
+    padding: 0 10px;
+    height: 40px;
+    background: white;
+  }
+  button {
+    cursor: pointer;
+  }
 `;
 
 const optionsStatus = [
@@ -102,7 +113,12 @@ function Filter() {
   return (
     <>
       <Wrapper>
-        <input placeholder="name" onChange={handleChange} value={inputValue} />
+        <input
+          placeholder="name"
+          onChange={handleChange}
+          value={inputValue}
+          className="input-search"
+        />
         <Select
           options={optionsStatus}
           onChange={handleChangeSelect}
